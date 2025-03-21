@@ -35,19 +35,24 @@ fun main() {
  * stored, plus any application logic functions
  */
 class App() {
-    // Constants defining any key values
-    val MAX_CLICKS = 10
+    var playerLocation =
+    val connections = mutableListOf<Connection>()
 
-    // Data fields
-    var clicks = 0
-
-    // Application logic functions
-    fun updateClickCount() {
-        clicks++
-        if (clicks > MAX_CLICKS) clicks = MAX_CLICKS
+    init {
+        connections.add(Connection("There appears to be a door leading outside", "Central Yharnam"))
     }
 }
 
+class Connection(val description: String, val location: String) {
+
+}
+
+class Location(val name: String, val description: String, val connection: MutableList<Connection>) {
+    override fun toString(): String {
+        return "$name\n $description"
+    }
+
+}
 
 /**
  * Main UI window (view)
@@ -57,8 +62,13 @@ class App() {
 class MainWindow(val app: App) : JFrame(), ActionListener {
 
     // Fields to hold the UI elements
-    private lateinit var clicksLabel: JLabel
-    private lateinit var clickButton: JButton
+    private lateinit var titleLabel: JLabel
+    private lateinit var infoLabel: JLabel
+    private lateinit var locationSelection: JComboBox<Connection>
+    private lateinit var fightButton: JButton
+    private lateinit var checkButton: JButton
+    private lateinit var itemButton: JButton
+    private lateinit var lampButton: JButton
 
     /**
      * Configure the UI and display it
@@ -78,7 +88,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     private fun configureWindow() {
         title = "Kotlin Swing GUI Demo"
-        contentPane.preferredSize = Dimension(600, 350)
+        contentPane.preferredSize = Dimension(1200, 700)
         defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
         isResizable = false
         layout = null
@@ -90,19 +100,53 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * Populate the UI with UI controls
      */
     private fun addControls() {
-        val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 36)
+        val titleFont = Font(Font.SANS_SERIF, Font.PLAIN, 32)
+        val infoFont = Font(Font.SANS_SERIF, Font.PLAIN, 24)
 
-        clicksLabel = JLabel("CLICK INFO HERE")
-        clicksLabel.horizontalAlignment = SwingConstants.CENTER
-        clicksLabel.bounds = Rectangle(50, 50, 500, 100)
-        clicksLabel.font = baseFont
-        add(clicksLabel)
+        titleLabel = JLabel("Bloodborne")
+        titleLabel.horizontalAlignment = SwingConstants.CENTER
+        titleLabel.bounds = Rectangle(500, 44, 200, 48)
+        titleLabel.font = titleFont
+        add(titleLabel)
 
-        clickButton = JButton("Click Me!")
-        clickButton.bounds = Rectangle(50,200,500,100)
-        clickButton.font = baseFont
-        clickButton.addActionListener(this)     // Handle any clicks
-        add(clickButton)
+        infoLabel = JLabel(" ")
+        infoLabel.border = BorderFactory.createLineBorder(Color(127, 127, 127), 5)
+        infoLabel.horizontalAlignment = SwingConstants.CENTER
+        infoLabel.bounds = Rectangle(130, 130, 940, 230)
+        infoLabel.font = infoFont
+        add(infoLabel)
+
+        fightButton = JButton("Fight")
+        fightButton.border = BorderFactory.createLineBorder(Color(127, 127, 127), 5)
+        fightButton.horizontalAlignment = SwingConstants.CENTER
+        fightButton.bounds = Rectangle(750, 401, 320, 60)
+        fightButton.font = titleFont
+        fightButton.addActionListener(this)
+        add(fightButton)
+
+        checkButton = JButton("Check")
+        checkButton.border = BorderFactory.createLineBorder(Color(127, 127, 127), 5)
+        checkButton.horizontalAlignment = SwingConstants.CENTER
+        checkButton.bounds = Rectangle(750, 461, 320, 60)
+        checkButton.font = titleFont
+        checkButton.addActionListener(this)
+        add(checkButton)
+
+        itemButton = JButton("Item")
+        itemButton.border = BorderFactory.createLineBorder(Color(127, 127, 127), 5)
+        itemButton.horizontalAlignment = SwingConstants.CENTER
+        itemButton.bounds = Rectangle(750, 521, 320, 60)
+        itemButton.font = titleFont
+        itemButton.addActionListener(this)
+        add(itemButton)
+
+        lampButton = JButton("Lamp")
+        lampButton.border = BorderFactory.createLineBorder(Color(127, 127, 127), 5)
+        lampButton.horizontalAlignment = SwingConstants.CENTER
+        lampButton.bounds = Rectangle(750, 581, 320, 60)
+        lampButton.font = titleFont
+        lampButton.addActionListener(this)
+        add(lampButton)
     }
 
 
@@ -111,14 +155,7 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      * of the application model
      */
     fun updateView() {
-        if (app.clicks == app.MAX_CLICKS) {
-            clicksLabel.text = "Max clicks reached!"
-            clickButton.isEnabled = false
-        }
-        else {
-            clicksLabel.text = "You clicked ${app.clicks} times"
-            clickButton.isEnabled = true
-        }
+        infoLabel.text =
     }
 
     /**
@@ -128,10 +165,6 @@ class MainWindow(val app: App) : JFrame(), ActionListener {
      */
     override fun actionPerformed(e: ActionEvent?) {
         when (e?.source) {
-            clickButton -> {
-                app.updateClickCount()
-                updateView()
-            }
         }
     }
 
