@@ -16,13 +16,13 @@ The game functions correctly and meets the specification:
 - [X] The **current status** of the game is **shown in the GUI**, updated each player input
 - [X] The game is based on a **non-trivial map**
 - [X] The player can **move between locations**
-- [ ] The player has a **clear purpose** they can attempt to achieve
-- [ ] A **win / end / loss state** is possible
+- [X] The player has a **clear purpose** they can attempt to achieve
+- [X] A **win / end / loss state** is possible
 
 ### Program Code
 
 The program stores data using:
-- [ ] **Variables** of at least two types (e.g. int, text, boolean)
+- [X] **Variables** of at least two types (e.g. int, text, boolean)
 
 The program structure:
 - [X] Defines and implements a **graphical user interface (GUI)**
@@ -31,7 +31,7 @@ The program structure:
 - [X] Contains **sequences** of instructions
 - [X] Uses **conditional** instructions to control the program flow
 - [X] Uses program **branches** (if...else, when, etc.)
-- [ ] Uses **iteration** (loops) to repeat things (for, while, etc.)
+- [X] Uses **iteration** (loops) to repeat things (for, while, etc.)
 
 ### Program Documentation
 
@@ -60,27 +60,27 @@ The program has been tested and there is documented evidence that:
 ### Program Code
 
 The program stores data using variables, where:
-- [ ] Variable **names are well-chosen** (relating to their purpose)
+- [X] Variable **names are well-chosen** (relating to their purpose)
 - [ ] Variable names **begin with lowercase**
-- [ ] Naming is consistent, either **camelCase or snake_case**
+- [X] Naming is consistent, either **camelCase or snake_case**
 - [ ] Variables are **scoped appropriately** (global or local to a function)
 - [ ] **Global** variables are only used if **genuinely needed**
 
 The program uses OOP classes and objects appropriately, where:
-- [ ] OOP class **names are well-chosen**, relating to their functionality
-- [ ] OOP class names **begin with uppercase**
-- [ ] OOP classes contain **well-chosen data fields**
+- [X] OOP class **names are well-chosen**, relating to their functionality
+- [X] OOP class names **begin with uppercase**
+- [X] OOP classes contain **well-chosen data fields**
 - [ ] OOP classes contain **well-chosen methods**
 
 The program uses functions appropriately, where:
-- [ ] Function **names are well-chosen**, relating to their functionality 
+- [X] Function **names are well-chosen**, relating to their functionality 
 - [ ] Functions use **parameters** to pass data into them as needed
-- [ ] Functions provide a **return value** to the calling code if needed
+- [X] Functions provide a **return value** to the calling code if needed
 
 ### Game GUI
 
 The game GUI:
-- [ ] Adheres to **common conventions** (e.g. buttons look like buttons, etc.)
+- [X] Adheres to **common conventions** (e.g. buttons look like buttons, etc.)
 
 ### Program Documentation
 
