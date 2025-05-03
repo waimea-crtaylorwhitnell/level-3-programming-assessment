@@ -17,6 +17,7 @@ import com.formdev.flatlaf.FlatDarkLaf
 import java.awt.*
 import java.awt.event.*
 import javax.swing.*
+import kotlin.system.exitProcess
 
 
 /**
@@ -27,7 +28,8 @@ fun main() {
     val app = App()         // Create the app model
     val infoMenu = JPopupMenu()
     val buttonPopup = JPopupMenu()
-    MainWindow(app, infoMenu, buttonPopup)         // Create and show the UI, using the app model
+    val winPopup = JPopupMenu()
+    MainWindow(app, infoMenu, buttonPopup, winPopup)         // Create and show the UI, using the app model
 }
 
 
@@ -193,7 +195,7 @@ class Item(val name: String, val description: String?, var acquired: Boolean = f
  * Defines the UI and responds to events
  * The app model should be passwd as an argument
  */
-class MainWindow(val app: App, val infoMenu: JPopupMenu, val buttonPopup: JPopupMenu) : JFrame(), ActionListener {
+class MainWindow(val app: App, val infoMenu: JPopupMenu, val buttonPopup: JPopupMenu, val winPopup: JPopupMenu) : JFrame(), ActionListener {
 
     // Fields to hold the UI elements
     private lateinit var titleLabel: JLabel
@@ -924,6 +926,8 @@ class MainWindow(val app: App, val infoMenu: JPopupMenu, val buttonPopup: JPopup
             }
             lampButton -> {
                 app.lamp()
+                winPopUp.isVisible = true
+                exitProcess(48)
             }
             itemButton -> {
                 itemMenu.updateView()
@@ -932,24 +936,48 @@ class MainWindow(val app: App, val infoMenu: JPopupMenu, val buttonPopup: JPopup
             checkButton -> {
                 when (app.playerLocation) {
                     12 -> {
-                        app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
-                        checkPopUp.updateView()
-                        checkPopUp.isVisible = true
+                        if (app.items[0].acquired != true) {
+                            app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        } else {
+                            app.checkResponse += "The power of an umbilical cord once present, is no longer felt"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        }
                     }
                     16 -> {
-                        app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
-                        checkPopUp.updateView()
-                        checkPopUp.isVisible = true
+                        if (app.items[1].acquired != true) {
+                            app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        } else {
+                            app.checkResponse += "The power of an umbilical cord once present, is no longer felt"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        }
                     }
                     32 -> {
-                        app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
-                        checkPopUp.updateView()
-                        checkPopUp.isVisible = true
+                        if (app.items[3].acquired != true) {
+                            app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        } else {
+                            app.checkResponse += "The power of an umbilical cord once present, is no longer felt"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        }
                     }
                     47 -> {
-                        app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
-                        checkPopUp.updateView()
-                        checkPopUp.isVisible = true
+                        if (app.items[2].acquired != true) {
+                            app.checkResponse += "The power of an umbilical cord can be felt, protected by a powerful foe.</html>"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        } else {
+                            app.checkResponse += "The power of an umbilical cord once present, is no longer felt"
+                            checkPopUp.updateView()
+                            checkPopUp.isVisible = true
+                        }
                     }
                     else -> {
                         app.checkResponse += "While you can see many horrors, the power of an umbilical cord is absent.</html>"
@@ -961,33 +989,67 @@ class MainWindow(val app: App, val infoMenu: JPopupMenu, val buttonPopup: JPopup
             fightButton -> {
                 when (app.playerLocation) {
                     12 -> {
-                        app.fightResponse = "With a great deal of effort, you manage to defeat the witch's that dwell here.</html>"
-                        app.items[0].acquired = true
-                        fightPopUp.updateView()
-                        fightPopUp.isVisible = true
-                    }
-                    16 -> {
-                        if (app.items[0].acquired) {
-                            app.fightResponse = "With a great deal of effort, you manage to defeat the Vacuous Spider that roams the lake.</html>"
-                            app.items[1].acquired = true
+                        if (app.items[0].acquired != true) {
+                            app.fightResponse = "With a great deal of effort, you manage to defeat the witch's that dwell here.</html>"
+                            app.items[0].acquired = true
                             fightPopUp.updateView()
                             fightPopUp.isVisible = true
                         } else {
-
+                            app.fightResponse = "The horror defending the umbilical cord has already lost to you."
+                            fightPopUp.updateView()
+                            fightPopUp.isVisible = true
+                        }
+                    }
+                    16 -> {
+                        if (app.items[1].acquired != true) {
+                            if (app.items[0].acquired) {
+                                app.fightResponse = "With a great deal of effort, you manage to defeat the Vacuous Spider that roams the lake.</html>"
+                                app.items[1].acquired = true
+                                fightPopUp.updateView()
+                                fightPopUp.isVisible = true
+                            } else {
+                                app.fightResponse = "You do not yet wield enough insight to overcome Rom the Vacuous."
+                                fightPopUp.updateView()
+                                fightPopUp.isVisible = true
+                            }
+                        } else {
+                            app.fightResponse = "The horror defending the umbilical cord has already lost to you."
+                            fightPopUp.updateView()
+                            fightPopUp.isVisible = true
                         }
                     }
                     32 -> {
-                        if (app.items[2].acquired) {
-                            app.fightResponse = "With a great deal of effort, you manage to defeat Mergo's Wet Nurse who guarded this area.</html>"
-                            app.items[3].acquired = true
+                        if (app.items[3].acquired != true) {
+                            if (app.items[2].acquired) {
+                                app.fightResponse = "With a great deal of effort, you manage to defeat Mergo's Wet Nurse who guarded this area.</html>"
+                                app.items[3].acquired = true
+                                fightPopUp.updateView()
+                                fightPopUp.isVisible = true
+                            } else {
+                                app.fightResponse = "You do not yet wield enough insight to overcome the Wet Nurse of Mergo."
+                                fightPopUp.updateView()
+                                fightPopUp.isVisible = true
+                            }
+                        } else {
+                            app.fightResponse = "The horror defending the umbilical cord has already lost to you."
                             fightPopUp.updateView()
                             fightPopUp.isVisible = true
                         }
                     }
                     47 -> {
-                        if (app.items[1].acquired) {
-                            app.fightResponse = "With a great deal of effort, you manage to defeat the Orphan of Kos that laid here.</html>"
-                            app.items[2].acquired = true
+                        if (app.items[2].acquired != true) {
+                            if (app.items[1].acquired) {
+                                app.fightResponse = "With a great deal of effort, you manage to defeat the Orphan of Kos that laid here.</html>"
+                                app.items[2].acquired = true
+                                fightPopUp.updateView()
+                                fightPopUp.isVisible = true
+                            } else {
+                                app.fightResponse = "You do not yet wield enough insight to overcome the Orphan of Kos."
+                                fightPopUp.updateView()
+                                fightPopUp.isVisible = true
+                            }
+                        } else {
+                            app.fightResponse = "The horror defending the umbilical cord has already lost to you."
                             fightPopUp.updateView()
                             fightPopUp.isVisible = true
                         }
@@ -998,9 +1060,6 @@ class MainWindow(val app: App, val infoMenu: JPopupMenu, val buttonPopup: JPopup
                         fightPopUp.isVisible = true
                     }
                 }
-            }
-            lampButton -> {
-                winPopUp.isVisible = true
             }
         }
         updateView()
@@ -1083,7 +1142,7 @@ class ButtonPopup(val app: App): JDialog(), ActionListener {
      */
     private fun configureWindow() {
         title = ""
-        contentPane.preferredSize = Dimension(400, 475)
+        contentPane.preferredSize = Dimension(400, 110)
         isResizable = false
         isModal = true
         layout = null
@@ -1097,7 +1156,7 @@ class ButtonPopup(val app: App): JDialog(), ActionListener {
         val baseFont = Font(Font.SANS_SERIF, Font.PLAIN, 24)
 
         buttonResponse = JLabel(app.checkResponse + app.fightResponse)
-        buttonResponse.bounds = Rectangle(25, 85, 350, 400)
+        buttonResponse.bounds = Rectangle(25, 5, 375, 90)
         buttonResponse.horizontalAlignment = SwingConstants.CENTER
         buttonResponse.font = baseFont
         add(buttonResponse)
